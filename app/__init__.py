@@ -20,8 +20,8 @@ def create_app():
 
     # Register blueprints
     from . import views, auth
-    app.register_blueprint(views.bp) # Register the main blueprint
-    app.register_blueprint(auth.bp) # Register the auth blueprint
+    app.register_blueprint(views.bp, url_prefix='/') # Register the main blueprint
+    app.register_blueprint(auth.bp, url_prefix='/') # Register the auth blueprint
     # app.register_blueprint(admin.bp) # Register the admin blueprint
 
     return app # Return the Flask application instance
