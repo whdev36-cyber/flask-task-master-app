@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Task Master | {% block title %}{% endblock %}</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@picocss/pico@2/css/pico.min.css">
+</head>
+
+<body>
+    <header class="container">
+        <nav>
+            <ul>
+                <li>
+                    <a href="{{ url_for('main.home') }}">
+                        <img src="{{ url_for('static', filename='check.png') }}" alt="Image of a checkmark"
+                            style="width: 40px; height: auto;">
+                    </a>
+                </li>
+            </ul>
+            <ul>
+                <li><a class="contrast" href="{{ url_for('main.home') }}">Home</a></li>
+                <li><a class="contrast" href="{{ url_for('auth.login') }}">Login</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- Main Container -->
+    <main class="container">
+        {% block content %}
+        {% endblock %}
+    </main>
+</body>
+
+</html>
