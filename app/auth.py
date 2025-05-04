@@ -3,6 +3,7 @@ from  flask_login import current_user, login_user, logout_user, login_required
 from app.forms import LoginForm, UserCreationForm, TaskForm
 from app.models import User
 from werkzeug.security import generate_password_hash, check_password_hash
+from app import db
 
 bp = Blueprint('auth', __name__) # Create a blueprint for the authentication module
 
@@ -22,3 +23,17 @@ def login():
         else:
             flash('Invalid password or email, please try again!', category='error')
     return render('login.html', form=form)
+
+@bp.route('/register', methods=['GET', 'POST'])
+def register():
+
+    form = UserCreationForm()
+    if form.validate_on_submit():
+        new_user = User(name=form.name.data,
+                        email=form.email.data,
+                        password=generate_password_hash(form.password1.data, method='scrypt'))
+        db.session.add(new_user)
+        db.session.commit()
+        flash('Your account has been created successfully!', category='success')
+        return redirect(url_for('auth.login'))
+    return render('register.html', form=form)
